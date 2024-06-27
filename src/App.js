@@ -18,18 +18,20 @@ const App = () => {
           <div className="Movie-title">{movie.title}</div>
           <img alt="" className="Movie-image" 
           src={`${process.env.REACT_APP_BASEIMGURL}/${movie.poster_path}`}></img>
-          <div className="Movie-date">{movie.release_date}</div>
+          <div className="Movie-date">release: {movie.release_date}</div>
           <div className="Movie-rate">{movie.vote_average}</div>
         </div>
       )
     })
   }
 
-  const search = (q) => {
-    console.log({q})
+  const search = async (q) => {
+    if (q.length > 3) {
+      const query = await searchMovie(q)
+      setPopularMovies (query.results)
+    }
   }
 
-console.log({popularMovies: popularMovies})
 
   return (
     <div className="App">
